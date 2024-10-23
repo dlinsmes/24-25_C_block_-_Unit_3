@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class CardGame {
 
     public static void main(String [] args) {
@@ -87,8 +89,74 @@ public class CardGame {
             System.out.println("Card " + i + " in hand: " + ranks[rankI] + " of " + suits[suitI]);
         }
 
-        //game: ask the user which card in their hand they want to swap for a new card from the deck
+        //game: ask the user which card in their hand they want to replace with
+        // a new card from the deck
         //until they have four of a kind of the same rank, ex: 4 Aces
+
+        //use a while loop to keep getting new cards for the hand until you have 4 of a kind
+
+        //-ask which index of the hand they want a new card for
+        //-replace that card with a new card from the top of the deck
+        //-print all the cards in the new hand
+        //-check for four of a kind (same rank)
+
+        Scanner s = new Scanner(System.in);
+
+        boolean fourOfKind = false;
+        while(!fourOfKind) {
+
+            //step 1
+            System.out.println("What index do you want a new card for?");
+            int index = s.nextInt();
+
+
+            //step 2
+            hand[index] = deck[top];
+
+            //advance where the "top" is since arrays can't change length
+            top++;
+
+            //3
+            for (int i = 0; i < hand.length; i++) {
+
+                //generate the rank and suit indices
+                rankI = hand[i] % 13;
+                suitI = hand[i] / 13;
+
+                System.out.println("Card " + i + " in hand: " + ranks[rankI] + " of " + suits[suitI]);
+            }
+
+            //4
+            for (int i = 0; i < hand.length; i++) {
+
+                //look for matches in rank between multiple cards in the hand
+
+                //this is the rank index, not the String rank value
+                rankI = hand[i] % 13;
+
+                //count how many cards have the same rank in the hand
+                count = 0;
+
+                for (int j = i; j < hand.length; j++) {
+                    //generate the rank index of card j
+                    int rankJ = hand[j] % 13;
+
+                    //increment count if the two ranks (indices) match
+                    if (rankI == rankJ) {
+                        count++;
+                    }
+
+                }
+
+                if (count == 4) {
+                    fourOfKind = true;
+                    System.out.println("you have four " + ranks[rankI] + "s ");
+                }
+
+
+            }
+
+        }
 
 
     }
